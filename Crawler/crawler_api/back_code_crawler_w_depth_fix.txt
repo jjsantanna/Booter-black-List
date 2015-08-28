@@ -1,0 +1,68 @@
+			# - 1.1 number of pages
+			number_of_pages 	= 1.0
+			number_of_pages_raw = 1.0 # also store a raw score for data analysis 
+			# crawl through the URL and each subsequent inbound URL 
+			crawled     = []
+			crawl_count = 0
+			max_urls    = 50
+			# - get landing page
+			landing_page = CrawlPage(this.JSCrawl(URL.Full_URL))
+			inbounds     = landing_page.GetInboundURLs()
+			crash_pages  = []
+			
+			this.PrintNote('scraping: ' + URL.Full_URL)	
+			page_url	 = (landing_page.URL.Hostname + landing_page.URL.Path).replace('//','/')
+			if page_url[len(page_url) - 1] == '/':
+				page_url = page_url[:-1]
+			depth_levels = { page_url : 0 }
+			inbounds.append(page_url)
+
+			# 1.1.1 store depth levels of landing page found inbound urls
+			for inbound in inbounds:
+				if inbound not in URL.Full_URL and inbound not in page_url:
+					# todo: resolve each URL found to get final resolved URL (as pointed and resolve URLs might differ)
+					# example: booter.org/boot/ becomes booter.org/boot/index.php?page=login, which disrupts dictionary
+					# indices if not using resolved versions. However, this will significantly slow down the crawler.
+					# is this negligable, or other solution?
+					# RESEARCH NOTE: Make explicit mention of this in research, is it necessary to resolve all URLs?
+					resolved = this.JSCrawl('http://' + inbound)
+					depth_levels[resolved.url] = 1
+					# depth_levels[inbound] = 1
+
+			crawled.append(landing_page)
+
+			# 1.1.2. then from each found (inbound) URL, keep crawling until		
+			while crawl_count < len(inbounds) and crawl_count < max_urls - 1:
+				inbound = inbounds[crawl_count]
+				if inbound not in crawled and inbound not in crash_pages:
+					try:
+						# crawl next page and obtain new inbound/outbound urls
+						this.PrintNote('scraping: ' + 'http://' + inbound)
+						response = this.JSCrawl('http://' + inbound)
+						crawl_page    = CrawlPage(response)
+						new_inbounds  = crawl_page.GetInboundURLs()
+						# for each of the new_inbounds, set their depth level if less than currently stored (or not yet stored)
+						resolved_new_inbounds = []
+						for new_inbound in new_inbounds:
+							if crawl_count <  max_urls: # only continue crawling if crawl limit not yet reached
+								resolved_new_inbound = this.JSCrawl('http://' + new_inbound).url
+								crawl_count += 1
+								this.PrintNote('scraping: ' + resolved_new_inbound)
+								resolved_new_inbounds.append(resolved_new_inbound)
+								if resolved_new_inbound not in depth_levels:
+									depth_levels[resolved_new_inbound] = depth_levels[response.url] + 1
+						# calculate how many new URLs were found
+						all_inbounds     = inbounds  + list(set(new_inbounds)  - set(inbounds))
+						difference       = len(all_inbounds) - len(inbounds)
+						number_of_pages += difference
+						# merge results
+						inbounds  = inbounds  + list(set(resolved_new_inbounds)  - set(inbounds))
+						# then continue
+						crawled.append(crawl_page)
+						crawl_count = crawl_count + 1
+					except Exception as ex:
+						this.PrintError('EXCEPTION: ' + str(ex))
+						crash_pages.append(inbound)
+						crawl_count = crawl_count + 1
+						raise
+		

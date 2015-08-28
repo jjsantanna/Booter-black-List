@@ -1,0 +1,15 @@
+- Fractional distance equation is incorrectly displayed: power of 1/f is over entire Sigma, not each individual element; Also use absolute sign
+	- Add another reference to 2005_Fractional Distance Measures for Content-Based Image Retrieval  \cite{2005_howarth}
+- Fractional distance: find the maximum value to normalize results with in wolframalpha via: (sum (1.0)^0.5 ),i=1 to 15)^(1 / 0.5) with 0.5 being f
+
+
+When it comes to Naive Bayes:
+- Not all characteristics will be known and we took this into account when it comes to the calculated probabilities.
+	- However, the Naive Bayes equation isn't well-suited when it comes to unknown chances. We took the average chance
+	- of something occuring as: 0.5 which seems to generate good results. Make note of this in the paper!
+		- Also discuss if this is viable, or we'd much rather take the general averages of characteristics over the entire dataset?
+			- is this plausible?
+- We can include the weights in a pre-processing step where we multiply each of the individudal chances by the weights
+  and then divide all the 'weighted' chances by the maximum weight value to normalize them. 
+	- This will significantly drop the chance values (make sure we have enough precision; NOTE:not an issue in Python (56 bits)) but 
+          the relative differences in outcome remain the same.
