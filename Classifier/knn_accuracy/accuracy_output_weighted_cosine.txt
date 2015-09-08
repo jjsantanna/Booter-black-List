@@ -1,5 +1,5 @@
 -----------------------------
- euclidean      K = 1 
+ cosine      K = 1 
 -----------------------------
 == ==================
 euclidean
@@ -64,380 +64,15 @@ accuracy: 93.17647058823529%
 == ==================
 knn
 == ==================
-#true_positives : 52.0
-#true_negatives : 732.0
-#false_positives: 31.0
-#false_negatives: 35.0
--- ------------------
-accuracy: 92.23529411764706% 
-
------------------------------
- euclidean      K = 2 
------------------------------
-== ==================
-euclidean
-== ==================
-#true_positives : 72.0
-#true_negatives : 742.0
-#false_positives: 21.0
-#false_negatives: 15.0
--- ------------------
-accuracy: 95.76470588235294% 
-
-== ==================
-squared_euclidean
-== ==================
-#true_positives : 73.0
-#true_negatives : 734.0
-#false_positives: 29.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-manhattan
-== ==================
-#true_positives : 71.0
-#true_negatives : 736.0
-#false_positives: 27.0
-#false_negatives: 16.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-cosine
-== ==================
-#true_positives : 73.0
-#true_negatives : 732.0
-#false_positives: 31.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.70588235294117% 
-
-== ==================
-fractional
-== ==================
-#true_positives : 75.0
-#true_negatives : 722.0
-#false_positives: 41.0
-#false_negatives: 12.0
--- ------------------
-accuracy: 93.76470588235294% 
-
-== ==================
-naive_bayes
-== ==================
-#true_positives : 76.0
-#true_negatives : 716.0
-#false_positives: 47.0
-#false_negatives: 11.0
--- ------------------
-accuracy: 93.17647058823529% 
-
-== ==================
-knn
-== ==================
-#true_positives : 66.0
-#true_negatives : 716.0
-#false_positives: 47.0
-#false_negatives: 21.0
--- ------------------
-accuracy: 92.0% 
-
------------------------------
- euclidean      K = 3 
------------------------------
-== ==================
-euclidean
-== ==================
-#true_positives : 72.0
-#true_negatives : 742.0
-#false_positives: 21.0
-#false_negatives: 15.0
--- ------------------
-accuracy: 95.76470588235294% 
-
-== ==================
-squared_euclidean
-== ==================
-#true_positives : 73.0
-#true_negatives : 734.0
-#false_positives: 29.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-manhattan
-== ==================
-#true_positives : 71.0
-#true_negatives : 736.0
-#false_positives: 27.0
-#false_negatives: 16.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-cosine
-== ==================
-#true_positives : 73.0
-#true_negatives : 732.0
-#false_positives: 31.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.70588235294117% 
-
-== ==================
-fractional
-== ==================
-#true_positives : 75.0
-#true_negatives : 722.0
-#false_positives: 41.0
-#false_negatives: 12.0
--- ------------------
-accuracy: 93.76470588235294% 
-
-== ==================
-naive_bayes
-== ==================
-#true_positives : 76.0
-#true_negatives : 716.0
-#false_positives: 47.0
-#false_negatives: 11.0
--- ------------------
-accuracy: 93.17647058823529% 
-
-== ==================
-knn
-== ==================
-#true_positives : 73.0
-#true_negatives : 711.0
-#false_positives: 52.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 92.23529411764706% 
-
------------------------------
- euclidean      K = 4 
------------------------------
-== ==================
-euclidean
-== ==================
-#true_positives : 72.0
-#true_negatives : 742.0
-#false_positives: 21.0
-#false_negatives: 15.0
--- ------------------
-accuracy: 95.76470588235294% 
-
-== ==================
-squared_euclidean
-== ==================
-#true_positives : 73.0
-#true_negatives : 734.0
-#false_positives: 29.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-manhattan
-== ==================
-#true_positives : 71.0
-#true_negatives : 736.0
-#false_positives: 27.0
-#false_negatives: 16.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-cosine
-== ==================
-#true_positives : 73.0
-#true_negatives : 732.0
-#false_positives: 31.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.70588235294117% 
-
-== ==================
-fractional
-== ==================
-#true_positives : 75.0
-#true_negatives : 722.0
-#false_positives: 41.0
-#false_negatives: 12.0
--- ------------------
-accuracy: 93.76470588235294% 
-
-== ==================
-naive_bayes
-== ==================
-#true_positives : 76.0
-#true_negatives : 716.0
-#false_positives: 47.0
-#false_negatives: 11.0
--- ------------------
-accuracy: 93.17647058823529% 
-
-== ==================
-knn
-== ==================
-#true_positives : 75.0
-#true_negatives : 701.0
-#false_positives: 62.0
-#false_negatives: 12.0
--- ------------------
-accuracy: 91.29411764705883% 
-
------------------------------
- euclidean      K = 5 
------------------------------
-== ==================
-euclidean
-== ==================
-#true_positives : 72.0
-#true_negatives : 742.0
-#false_positives: 21.0
-#false_negatives: 15.0
--- ------------------
-accuracy: 95.76470588235294% 
-
-== ==================
-squared_euclidean
-== ==================
-#true_positives : 73.0
-#true_negatives : 734.0
-#false_positives: 29.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-manhattan
-== ==================
-#true_positives : 71.0
-#true_negatives : 736.0
-#false_positives: 27.0
-#false_negatives: 16.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-cosine
-== ==================
-#true_positives : 73.0
-#true_negatives : 732.0
-#false_positives: 31.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.70588235294117% 
-
-== ==================
-fractional
-== ==================
-#true_positives : 75.0
-#true_negatives : 722.0
-#false_positives: 41.0
-#false_negatives: 12.0
--- ------------------
-accuracy: 93.76470588235294% 
-
-== ==================
-naive_bayes
-== ==================
-#true_positives : 76.0
-#true_negatives : 716.0
-#false_positives: 47.0
-#false_negatives: 11.0
--- ------------------
-accuracy: 93.17647058823529% 
-
-== ==================
-knn
-== ==================
-#true_positives : 75.0
-#true_negatives : 690.0
-#false_positives: 73.0
-#false_negatives: 12.0
--- ------------------
-accuracy: 90.0% 
-
------------------------------
- euclidean      K = 6 
------------------------------
-== ==================
-euclidean
-== ==================
-#true_positives : 72.0
-#true_negatives : 742.0
-#false_positives: 21.0
-#false_negatives: 15.0
--- ------------------
-accuracy: 95.76470588235294% 
-
-== ==================
-squared_euclidean
-== ==================
-#true_positives : 73.0
-#true_negatives : 734.0
-#false_positives: 29.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-manhattan
-== ==================
-#true_positives : 71.0
-#true_negatives : 736.0
-#false_positives: 27.0
-#false_negatives: 16.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-cosine
-== ==================
-#true_positives : 73.0
-#true_negatives : 732.0
-#false_positives: 31.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.70588235294117% 
-
-== ==================
-fractional
-== ==================
-#true_positives : 75.0
-#true_negatives : 722.0
-#false_positives: 41.0
-#false_negatives: 12.0
--- ------------------
-accuracy: 93.76470588235294% 
-
-== ==================
-naive_bayes
-== ==================
-#true_positives : 76.0
-#true_negatives : 716.0
-#false_positives: 47.0
-#false_negatives: 11.0
--- ------------------
-accuracy: 93.17647058823529% 
-
-== ==================
-knn
-== ==================
-#true_positives : 77.0
-#true_negatives : 682.0
-#false_positives: 81.0
-#false_negatives: 10.0
+#true_positives : 0.0
+#true_negatives : 759.0
+#false_positives: 4.0
+#false_negatives: 87.0
 -- ------------------
 accuracy: 89.29411764705883% 
 
 -----------------------------
- euclidean      K = 7 
+ cosine      K = 2 
 -----------------------------
 == ==================
 euclidean
@@ -502,88 +137,15 @@ accuracy: 93.17647058823529%
 == ==================
 knn
 == ==================
-#true_positives : 77.0
-#true_negatives : 671.0
-#false_positives: 92.0
-#false_negatives: 10.0
+#true_positives : 0.0
+#true_negatives : 759.0
+#false_positives: 4.0
+#false_negatives: 87.0
 -- ------------------
-accuracy: 88.0% 
+accuracy: 89.29411764705883% 
 
 -----------------------------
- euclidean      K = 8 
------------------------------
-== ==================
-euclidean
-== ==================
-#true_positives : 72.0
-#true_negatives : 742.0
-#false_positives: 21.0
-#false_negatives: 15.0
--- ------------------
-accuracy: 95.76470588235294% 
-
-== ==================
-squared_euclidean
-== ==================
-#true_positives : 73.0
-#true_negatives : 734.0
-#false_positives: 29.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-manhattan
-== ==================
-#true_positives : 71.0
-#true_negatives : 736.0
-#false_positives: 27.0
-#false_negatives: 16.0
--- ------------------
-accuracy: 94.94117647058825% 
-
-== ==================
-cosine
-== ==================
-#true_positives : 73.0
-#true_negatives : 732.0
-#false_positives: 31.0
-#false_negatives: 14.0
--- ------------------
-accuracy: 94.70588235294117% 
-
-== ==================
-fractional
-== ==================
-#true_positives : 75.0
-#true_negatives : 722.0
-#false_positives: 41.0
-#false_negatives: 12.0
--- ------------------
-accuracy: 93.76470588235294% 
-
-== ==================
-naive_bayes
-== ==================
-#true_positives : 76.0
-#true_negatives : 716.0
-#false_positives: 47.0
-#false_negatives: 11.0
--- ------------------
-accuracy: 93.17647058823529% 
-
-== ==================
-knn
-== ==================
-#true_positives : 78.0
-#true_negatives : 664.0
-#false_positives: 99.0
-#false_negatives: 9.0
--- ------------------
-accuracy: 87.29411764705883% 
-
------------------------------
- euclidean      K = 9 
+ cosine      K = 3 
 -----------------------------
 == ==================
 euclidean
@@ -648,10 +210,886 @@ accuracy: 93.17647058823529%
 == ==================
 knn
 == ==================
-#true_positives : 80.0
-#true_negatives : 659.0
-#false_positives: 104.0
-#false_negatives: 7.0
+#true_positives : 0.0
+#true_negatives : 758.0
+#false_positives: 5.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 89.17647058823529% 
+
+-----------------------------
+ cosine      K = 4 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 758.0
+#false_positives: 5.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 89.17647058823529% 
+
+-----------------------------
+ cosine      K = 5 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 758.0
+#false_positives: 5.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 89.17647058823529% 
+
+-----------------------------
+ cosine      K = 6 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 753.0
+#false_positives: 10.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 88.58823529411765% 
+
+-----------------------------
+ cosine      K = 7 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 749.0
+#false_positives: 14.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 88.11764705882354% 
+
+-----------------------------
+ cosine      K = 8 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 739.0
+#false_positives: 24.0
+#false_negatives: 87.0
 -- ------------------
 accuracy: 86.94117647058823% 
+
+-----------------------------
+ cosine      K = 9 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 729.0
+#false_positives: 34.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 85.76470588235294% 
+
+-----------------------------
+ cosine      K = 10 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 753.0
+#false_positives: 10.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 88.58823529411765% 
+
+-----------------------------
+ cosine      K = 11 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 745.0
+#false_positives: 18.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 87.6470588235294% 
+
+-----------------------------
+ cosine      K = 12 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 735.0
+#false_positives: 28.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 86.47058823529412% 
+
+-----------------------------
+ cosine      K = 13 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 728.0
+#false_positives: 35.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 85.6470588235294% 
+
+-----------------------------
+ cosine      K = 14 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 84.23529411764706% 
+
+-----------------------------
+ cosine      K = 15 
+-----------------------------
+== ==================
+euclidean
+== ==================
+#true_positives : 72.0
+#true_negatives : 742.0
+#false_positives: 21.0
+#false_negatives: 15.0
+-- ------------------
+accuracy: 95.76470588235294% 
+
+== ==================
+squared_euclidean
+== ==================
+#true_positives : 73.0
+#true_negatives : 734.0
+#false_positives: 29.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+manhattan
+== ==================
+#true_positives : 71.0
+#true_negatives : 736.0
+#false_positives: 27.0
+#false_negatives: 16.0
+-- ------------------
+accuracy: 94.94117647058825% 
+
+== ==================
+cosine
+== ==================
+#true_positives : 73.0
+#true_negatives : 732.0
+#false_positives: 31.0
+#false_negatives: 14.0
+-- ------------------
+accuracy: 94.70588235294117% 
+
+== ==================
+fractional
+== ==================
+#true_positives : 75.0
+#true_negatives : 722.0
+#false_positives: 41.0
+#false_negatives: 12.0
+-- ------------------
+accuracy: 93.76470588235294% 
+
+== ==================
+naive_bayes
+== ==================
+#true_positives : 76.0
+#true_negatives : 716.0
+#false_positives: 47.0
+#false_negatives: 11.0
+-- ------------------
+accuracy: 93.17647058823529% 
+
+== ==================
+knn
+== ==================
+#true_positives : 0.0
+#true_negatives : 708.0
+#false_positives: 55.0
+#false_negatives: 87.0
+-- ------------------
+accuracy: 83.29411764705881% 
 

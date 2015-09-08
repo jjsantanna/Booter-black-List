@@ -27,6 +27,7 @@ class Verifier:
 	def GetScoreVector(this, table, url):
 		# result = storage.Select('SELECT * FROM scores WHERE domainName = \'' + url + '\'')
 		result = storage.Select('SELECT * FROM ' + table + ' WHERE domainName = \'' + url + '\'') # only load from test_scores
+
 		score_vector = []
 		for score in result[0][2:]:
 			score_vector.append(score)

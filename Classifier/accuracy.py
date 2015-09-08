@@ -13,8 +13,8 @@ test_table_to_verification['test_scores3'] = 'verification3'
 
 def CalculateAccuracy(thresholds):
 	# obtain score results from multiple test datasets
-	# test_tables = ['test_scores', 'test_scores2', 'test_scores3']
-	test_tables = ['scores']
+	test_tables = ['test_scores', 'test_scores2', 'test_scores3']
+	# test_tables = ['scores']
 	test_scores = {}
 	for table in test_tables:
 		# select a pseudo-random list of scores to test on the entire database
