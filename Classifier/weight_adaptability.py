@@ -67,7 +67,7 @@ def CheckAccuracy(new_weights):
 	TI_er    = false_positives / nr_total
 	TII_er   = false_negatives / nr_total
 	# - finally return newly calculated accuracy
-	return CAR
+	return [CAR, TI_er, TII_er]
 
 
 # gaussian function: a * e^((-(x - b)^2) / (2 * c^2))
@@ -86,17 +86,16 @@ def Gaussian(x = 0.5):
 # car = CheckAccuracy(weights)
 # print(car)
 
-iterations = 0
+iterations = 1
 while True:
 	iterations += 1
-	# 1, get current best set of weights and corresponding accuracy
+	# 1, get current best set of weights and corresponding accuracy rate
 	row 		= storage.Select('SELECT * FROM weight_adaptability ORDER BY car DESC LIMIT 1')
-	car 		= row[0][1]
-	new_weights = list(row[0][2:])
+	car 		= row[0][1] # best CAR stored in database
+	new_weights = list(row[0][4:])
 	# 2. update weights based on Guassian distribution curve
 	for w in range(0, len(new_weights)):
 		random_value = Gaussian(random.uniform(0.0, 1.001))
-		# print(random_value)
 		new_weights[w] *= random_value # TODx`O: make random in range [0,1]
 	# 3. create random outliers as to evolute the algorithm and throw it in different directions
 	# - do this once every 5 iterations
@@ -108,14 +107,16 @@ while True:
 		print('outlier ' + str(w) + ' boosted by ' + str(boost))
 		new_weights[w] *= boost
 	# 4. use updated weights to calculate new CAR
-	new_car = CheckAccuracy(new_weights)
-	print('new CAR: ' +str(new_car))
-	if new_car > car:
-		print('new set of weights found: ' + str(new_weigths))
+	error_rates = CheckAccuracy(new_weights) # [CAR, TI_er, TII_er]
+	print('new CAR: ' +str(error_rates[0]))
+	if error_rates[0] > car:
+		print('new set of weights found: ' + str(new_weights))
 	# 5. store and repeat
 	storage.Insert('weight_adaptability', 
-		datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-		new_car, 
+		[datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+		error_rates[0],
+		error_rates[1],
+		error_rates[2], 
 		new_weights[0], 
 		new_weights[1],
 		new_weights[2],
@@ -130,6 +131,5 @@ while True:
 		new_weights[11],
 		new_weights[12],
 		new_weights[13],
-		new_weights[14],
-		new_weights[15]
+		new_weights[14]]
 	)

@@ -520,8 +520,8 @@ class Crawler:
 				category_specific_dictionary_raw = category_specific_dictionary_raw / len(words)
 			else:
 				category_specific_dictionary_raw = 0.0
-			# calculate score: interpolate between 0.00 and 0.05
-			category_specific_dictionary = min(category_specific_dictionary_raw / 0.05, 1.0)
+			# calculate score: interpolate between 0.01 and 0.05 
+			category_specific_dictionary = max(1.0 - (category_specific_dictionary_raw - 0.01) / 0.04), 0.0)
 			this.PrintUpdate('Category specific dictionary: ' + str(category_specific_dictionary_raw))
 
 			# - 3.4. Resolver indication (only the landing page)
