@@ -12,13 +12,24 @@ SELECT urls.[booter?] AS booter,
 	avg(outbound_hyperlinks) AS outbound_hyperlinks_avg, min(outbound_hyperlinks) AS outbound_hyperlinks_min, max(outbound_hyperlinks) AS outbound_hyperlinks_max, ' ' AS ' ',
 	avg(category_specific_dictionary) AS category_specific_dictionary_avg, min(category_specific_dictionary) AS category_specific_dictionary_min, max(category_specific_dictionary) AS category_specific_dictionary_max, ' ' AS ' ',
 	avg(resolver_indication) AS resolver_indication_avg, min(resolver_indication) AS resolver_indication_min, max(resolver_indication) AS resolver_indication_max, ' ' AS ' ',
-	avg(resolver_indication) AS resolver_indication_avg, min(resolver_indication) AS resolver_indication_min, max(resolver_indication) AS resolver_indication_max, ' ' AS ' ',
-	avg(nr_pages) AS nr_pages_avg, min(nr_pages) AS nr_pages_min, max(nr_pages) AS nr_pages_max
+	avg(terms_of_services_page) AS terms_of_services_page_avg, min(terms_of_services_page) AS terms_of_services_page_min, max(terms_of_services_page) AS terms_of_services_page_max, ' ' AS ' ',
+	avg(login_form_depth_level) AS login_form_depth_level_avg, min(login_form_depth_level) AS login_form_depth_level_min, max(login_form_depth_level) AS login_form_depth_level_max
 FROM characteristics 
 LEFT OUTER JOIN urls ON urls.domainName = characteristics.domainName
 WHERE urls.status != 'off' 
 AND nr_pages >= 0.0 AND url_type >= 0.0 AND average_depth_level >= 0.0 AND  average_url_length >= 0.0 AND domain_age >= 0.0 AND domain_reservation_duration >= 0.0
 AND whois_private >= 0.0 AND dps >= 0.0 AND page_rank >= 0.0 AND average_content_size >= 0.0 AND outbound_hyperlinks >= 0.0 AND category_specific_dictionary >= 0.0
-AND resolver_indication >= 0.0
+AND resolver_indication >= 0.0 AND terms_of_services_page >= 0.0 AND login_form_depth_level >= 0.0
 GROUP BY urls.[booter?]
 
+
+
+UPDATE characteristics SET page_rank = 25800230.0 
+WHERE page_rank = -1.0
+
+
+UPDATE characteristics SET login_form_depth_level = 3.0 
+WHERE login_form_depth_level = -1.0
+
+SELECT urls.domainName, lastUpdate FROM urls INNER JOIN characteristics ON urls.domainName = characteristics.domainName WHERE urls.[booter?] = 'Y'
+ORDER BY lastUpdate DESC

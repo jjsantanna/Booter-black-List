@@ -1,0 +1,12 @@
+*.db
+*.txt
+*.dat
+*.eps
+*.pyc
+Classifier/gnu/
+Classifier/knn_accuracy/
+Classifier/gnu/
+Classifier/weight_adaptability/
+Classifier/__pycache__
+Crawler/__pycache__
+Crawler/crawler_api/__pycahce__

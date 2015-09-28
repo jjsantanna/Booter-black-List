@@ -7,37 +7,21 @@ from crawler_api.booter_url import BooterURL
 
 # documentation: https://developers.google.com/web-search/docs/#The_Basics
 
+# this sub-crawler is discontinuid; Facebook unreliably queries/blocks results
 class Crawler_Facebook(Crawler):
 	'Crawler of Facebook via default web requests'
 	def __init__(this, sleep_level=1):
 		domain = 'https://www.facebook.com' 
 		Crawler.__init__(this, domain, sleep_level)
 
-		# this.Excludes = {
-		# 	'youtube.com',
-		# 	'gyazo.com',
-		# 	'dropbox.com',
-		# 	'uploading.com',
-		# 	'ge.tt',
-		# 	'rapidshare.com',
-		# 	'facebook.com',
-		# 	'twitter.com',
-		# 	'hackforums.net',
-		# 	'imgur.net',
-		# 	'mediafire.com',
-		# 	'prntscr.com',
-		# 	'pastebin.com',
-		# 	'imgur.com',
-		# }
-
 		this.PrintNote('CRAWLING FACEBOOK')
 		this.PrintDivider()
 		this.Initialize()
 
-	# Login to facebook.com
+	# login to facebook.com
 	def Login(this):
-		username = 'swaglordxx69mail@gmail.com'
-		password = 'LePass1337'
+		username = 'your_username_here'
+		password = 'your_password_here'
 		url = this.Target + '/login.php?login_attempt=1'
 		post_data = {
 			'email': username,
@@ -60,7 +44,7 @@ class Crawler_Facebook(Crawler):
 			post_data
 		)
 
-	# Overrides Crawler's crawl function
+	# overrides Crawler's crawl function
 	def Crawl(this, max_results=100):
 		keywords = ['online booter', 'stresser']
 
@@ -114,16 +98,7 @@ class Crawler_Facebook(Crawler):
 
 					# resolve each url and add returned url to final urls
 					for url in urls_found:
-						# url = BooterURL(url)
-						# if not this.IsExcluded(url):
-							# try:
-								# response = this.JSCrawl(url.Full_URL)
-								# this.PrintLine('CRAWLER: ' + response.url, Fore.BLUE)
 						this.AddToList(BooterURL(url), 'Youtube')
-								
-							# except Exception as ex:
-								# this.PrintError('EXCEPTION: ' + str(ex))
-								# this.Sleep()
 						counter = counter + 1
 						if counter % split == 0:
 							this.PrintDivider()	
@@ -141,7 +116,6 @@ class Crawler_Facebook(Crawler):
 	# certain stop keywords are found like 'download'
 	def StopSearching(this, description):
 		stop_words = {
-			# 'download', # not effective due to stuff like 'no download required'
 			'tutorial'
 			'download:'
 			'gui',

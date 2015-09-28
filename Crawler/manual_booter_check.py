@@ -10,7 +10,11 @@ import crawler_api.storage
 from selenium import webdriver
 import sys
 
-
+# this is a simple script to manually traverse all PBDs found by the crawler
+# this script uses Selenium to open each PBD and quickly stores data based on
+# a keypress; used for generating training/test datasets.
+# this is a convenience script as manually retyping and saving URL data takes
+# a considerate amount of time.
 
 def getch():
 	import tty, termios
@@ -23,7 +27,7 @@ def getch():
 		termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 	return ch
 
-from_date    = datetime.datetime(2015, 8, 10).strftime('%Y-%m-%d %H:%M:%S')
+from_date    = datetime.datetime(2015, 8, 10).strftime('%Y-%m-%d %H:%M:%S') # date of specific test items
 
 # open chrome driver
 driver = webdriver.Chrome()
@@ -60,7 +64,3 @@ for url in crawler_api.storage.Select('SELECT fullURL FROM urls WHERE timeAdd >=
 			function_key_pressed = True
 		else:
 			print('NO FUNCTION KEY PRESSED')
-
-	# sleep(1)
-
-

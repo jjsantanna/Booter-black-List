@@ -13,7 +13,7 @@ from crawler_api.crawl_page import CrawlPage
 import crawler_api.storage
 
 
-
+# simple callback class for timer management
 class timeout:
     def __init__(self, seconds=1, error_message='Timeout'):
         self.seconds = seconds
@@ -30,13 +30,17 @@ class timeout:
 class Crawler:
 	'General purpose Crawler; hosts functionality relevant to crawling a '
 	'multitude of online web applications like forums, video-platforms and '
-	'social media. The Crawler is not operable by itthis, but acts as a '
+	'social media. The Crawler is not operable by itself, but acts as a '
 	'superclass for specific crawler instances per web application.'
 	def __init__(this, target, sleep_level=1):
 		this.Target = target
 		this.Sleep_Level = sleep_level
 		this.URLs = []
 		
+		# a list of domains excluded from Booter identification
+		# these are frequently found in the results and can easily be excluded
+		# from all calculations.
+		# - can be extended
 		this.Excludes = {
 			'youtube.com',
 			'gyazo.com',
@@ -53,9 +57,9 @@ class Crawler:
 			'prntscr.com',
 			'pastebin.com',
 			'wikipedia',
-			# 'gui', # not too sure about this, gui booters are known as software booters, any other chance of gui appearing in legit booter?
 		}
-
+		# heuristic phrases to determine whether a website/domain is parked i.e. for sale
+		# - can be extended
 		this.ParkPhrases = {
 			"this domain may be for sale", 
 			"this domain is for sale", 
@@ -69,19 +73,22 @@ class Crawler:
 	# =========================================================================
 	# INITIALIZATION
 	# =========================================================================
-	# Configures all connection objects and optionally logs into the service
+	# configures all connection objects and optionally logins into the service
 	def Initialize(this):
 		this.PrintUpdate('initiating crawling procedures')
 		this.PrintDivider()
 		this.Session = requests.Session()		
-		# configure http header for each request
-		user_agents = [ # you'll want to update this from time to time with newest user-agent headers (otherwise crawler could get detected)
+		# possible user-agent strings for the crawler system's 'user-agent' header flag
+		# a random user_agent string is selected each subsequent crawler run as to help
+		# avoid detection; manual update required from time to time
+		user_agents = [ 
 		    # 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11',
 		    # 'Opera/9.25 (Windows NT 5.1; U; en)',
 		    # 'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Kubuntu)',
 		    # 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.12) Gecko/20070731 Ubuntu/dapper-security Firefox/1.5.0.12',
-		    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36',
+		    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36', # this is currently enough for all purposes
 		] 
+		# http header
 		this.Header = {
 			'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9',
 			'Accept-Encoding': 'gzip, deflate, sdch',
@@ -93,8 +100,7 @@ class Crawler:
 		this.PrintDebug(str(this.Header))
 
 
-
-	# Follows login procedures to initiate a session object per web application
+	# follows login procedures to initiate a session object per web application
 	def Login(this, url, succes_page, post_data={}):
 		this.PrintDivider()
 		this.PrintUpdate('attempting to login at: ' + url)
@@ -102,49 +108,51 @@ class Crawler:
 
 		response = this.Session.post(url, data=post_data, headers=this.Header)
 		js_scraper = cfscrape.create_scraper()
-		# response = js_scraper.post(url, headers=this.Header, data=post_data, timeout=15.0) 
+		# login process specific to hackforums.net; during the reseach hackforums.net enabled additional
+		# security checks at their login services. Continously requesting login attemps seems to bypass
+		# their detective measures. Can (and should) be generlized in the future.
 		redirect_count = 1
-		while 'HackForums.net has enabled additional security.' in response.text: # zou niet mogen voorkomen; requests regelt re-directs automatisch
-			print('redirect!')
-			# response = js_scraper.post(response.url, headers=this.Header, data=post_data,  timeout=15.0) 
+		while 'HackForums.net has enabled additional security.' in response.text: 
+			print('HackForums.net detection bypass -redirect.')
 			response = this.Session.post(url, data=post_data, headers=this.Header)
 			redirect_count = redirect_count + 1
-			if redirect_count == 1000: # increase to 5000, seemed to work last time?
-				this.PrintError('REDIRECT COUNT OF 5 REACHED! ' + response.url)
+			if redirect_count == 5000: # increase to 5000, seemed to work last time?
 				break
-
-		print(response.url + ' | ' + succes_page)
-		print(response.history)
 		if response.url == succes_page:
 			this.PrintUpdate('login succesful')
 			this.PrintDivider()
 			return True
 		else:
 			this.PrintError('failed to login to target server. Is the target online or blocked?')
-			# print(response.text)
 			return False
 
-	# Adds a list of url substrings thst should be excluded from list of URLs
+	# adds a list of url substrings thst should be excluded from list of URLs
 	def AddExcludes(this, excludes):
 		this.Excludes = excludes
 
 
 	# =========================================================================
-	# CRAWL
+	# CRAWLER: GENERATING A PBD LIST
 	# =========================================================================
-	# Crawls the web service, should be overriden in each subclass
+	# crawls the web service, should be overriden in each subclass
 	def Crawl(this, max_date):
 		this.PrintError('Crawler.Crawl function not instantiated!')
 
-	# Determines whether the url should be excluded
+	# determines whether the url should be excluded
 	def IsExcluded(this, URL):
 		for excluded in this.Excludes:
 			if excluded in URL.Full_URL:
-				# print('EXCLUDED: ' + URL.UniqueName())
 				return True
 		return False
 
-    # Adds a URL to the final URL list if it meets all conditions
+    # determines whether a url is already added to the URL list
+	def IsDuplicate(this, URL):
+		for i in range(len(this.URLs)):
+			if this.URLs[i].UniqueName() == URL.UniqueName():
+				return True
+		return False
+
+    # adds a URL to the final URL/PBD list if it meets all conditions
 	def AddToList(this, URL, source='?'):
 		if not this.IsDuplicate(URL) and not this.IsExcluded(URL):
 			try:
@@ -166,16 +174,8 @@ class Crawler:
 				this.PrintError('EXCEPTION: ' + str(ex))
 
 
-    # Determines whether a url is already added to the URL list
-	def IsDuplicate(this, URL):
-		for i in range(len(this.URLs)):
-			if this.URLs[i].UniqueName() == URL.UniqueName():
-				# print(this.URLs[i].UniqueName() + ' == ' + URL.UniqueName())
-				return True
 
-		return False
-
-    # Finish crawling and output URL list to file
+    # finish crawling and output URL/PBD list to file
 	def Finish(this, output_file):
 		this.PrintUpdate('writing output to file \'' + output_file + '\'')
 		f = open(output_file, 'w')
@@ -187,9 +187,10 @@ class Crawler:
 
 	# sleeps for a semi-random amount of time to mitigate bot detection
 	def Sleep(this):
-		sleep(this.Sleep_Level + random() * this.Sleep_Level)
+		# semi-randomly vary sleep amount to emulate human behavior
+		sleep(this.Sleep_Level + random() * this.Sleep_Level) 
 
-	# enables javascript to circumvent cloudflare's bot detection
+	# enables javascript to circumvent JS bot detection
 	def JSCrawl(this, url):
 		js_scraper = cfscrape.create_scraper()
 		response = js_scraper.get(url, headers=this.Header, timeout=15.0) 
@@ -206,7 +207,6 @@ class Crawler:
 	# is offline/online or for sale
 	def GetStatus(this, url):
 		response = this.JSCrawl(url)
-		# response = this.Session.get(url, headers=this.Header)
 		if response.status_code == 200 or response.status_code == 403 or response.status_code == 202:
 			# check if for sale, otherwise site deemed as online
 			for phrase in this.ParkPhrases:
@@ -218,23 +218,22 @@ class Crawler:
 			return ('off', response.status_code, response.url)
 
 	# =========================================================================
-	# EVIDENCE AND HEURISTICS
+	# SCRAPER: EVIDENCE AND HEURISTICS
 	# =========================================================================
 	# scrapes a (potential) Booter URL for evidence as reported by Booter 
-	# characteristics in 'Improving the Dynamic Booter (black)list generation'
+	# characteristics in 'The Generation of Booter (black)lists'
 	def Scrape(this, URL, days_update=0):
-		# Check if number of days_update days have passed since last update, and if so, update
-		if crawler_api.storage.RowExists('test_scores3', URL.UniqueName()): 
-			last_update  = crawler_api.storage.GetSingleValue('test_scores3', URL.UniqueName(), 'lastUpdate')
+		# check if number of days_update days have passed since last update, and if so, update
+		if crawler_api.storage.RowExists('scores', URL.UniqueName()): 
+			last_update  = crawler_api.storage.GetSingleValue('scores', URL.UniqueName(), 'lastUpdate')
 			last_update  = datetime.datetime.strptime(last_update, '%Y-%m-%d %H:%M:%S')
-			# print(last_update)
 			current_date = datetime.datetime.now()
 			difference   = (current_date - last_update).days
 			if difference < days_update:
 				this.PrintDivider()
 				this.PrintDebug('Skip scrape: ' + URL.UniqueName() + '; last scraped: ' + str(last_update))
 				return 
-		# Else, start scraping
+		# else, start scraping
 		try:
 			this.PrintDivider()
 			this.PrintDebug('STARTING SCRAPE: ' + URL.Full_URL)
@@ -268,7 +267,7 @@ class Crawler:
 
 			crawled.append(landing_page)
 
-			# 1.1.2. then from each found (inbound) URL, keep crawling until
+			# 1.1.2. then from each found (inbound) URL, keep crawling until maximum crawl limit is reached
 			fail_loop_attempts = 0		
 			while crawl_count < len(inbounds) and crawl_count < max_urls - 1:
 				inbound = inbounds[crawl_count]
@@ -312,8 +311,7 @@ class Crawler:
 			this.PrintUpdate('number of pages: ' + str(number_of_pages_raw))
 
 			# - 1.2. URL type
-			# how to determine its url type? difficult to determine programmaticaly 
-			# can check if contains subdomain other than www/ww1/ww2 etc.	
+			# how to determine its url type? difficult/impossible to determine programmaticaly 	
 			url_type_raw = landing_page.URLType()
 			if url_type_raw == 2:
 				url_type = 0.0
@@ -341,7 +339,6 @@ class Crawler:
 			for page in inbounds: # use inbounds, not pages crawled as they give much more results
 				average_url_length_raw = average_url_length_raw + len(page)
 			# calculate score: interpolate linearly from lowest occurence to highest Booter occurence
-			# at the moment between 15 - 30
 			average_url_length_raw = average_url_length_raw / len(inbounds) 
 			if average_url_length_raw <= 15:
 				average_url_length = 1.0
@@ -351,11 +348,9 @@ class Crawler:
 
 
 			### 2. content-based characteristics
-			# note for DNS stuff: use ldns; Roland approves
 			this.PrintDivider()
 			this.PrintUpdate('obtaining content-based characteristics')
 			this.PrintDivider()
-
 
 			# get whois information
 			# "Each part represents the response from a specific WHOIS server. Because the WHOIS doesn't force WHOIS 
@@ -524,7 +519,7 @@ class Crawler:
 			category_specific_dictionary = max(1.0 - (category_specific_dictionary_raw - 0.01) / 0.04), 0.0)
 			this.PrintUpdate('Category specific dictionary: ' + str(category_specific_dictionary_raw))
 
-			# - 3.4. Resolver indication (only the landing page)
+			# - 3.4. Resolver indication (only the landing page); perhaps extend to all pages in future version?
 			resolver_indication = 0.0
 			dictionary = [ 'skype' , 'xbox', 'resolve', 'cloudflare' ]
 			for item in dictionary:
@@ -552,8 +547,6 @@ class Crawler:
 			if terms_of_services_page < 0.5:
 				for content in crawl_contents:
 					text = ' '.join(content).lower()
-					# for page in crawled:
-					# text = ' '.join(page.GetContent()).lower()
 					for phrase in tos_phrases:
 						if phrase in text:
 							terms_of_services_page = 1.0
@@ -574,8 +567,6 @@ class Crawler:
 					if page_url[len(page_url) - 1] == '/':
 						page_url = page_url[:-1]
 					forms_urls.append(page_url)
-			# print(forms_urls)
-			# print(depth_levels)
 			min_depth = 100
 			for url in forms_urls:
 				for depth_url in depth_levels:
@@ -585,12 +576,12 @@ class Crawler:
 						break
 			if min_depth != 100:
 				login_form_depth_level_raw = min_depth
-				# transform to score (if depth level exceeds 2, score becomes 0)
+			# transform to score (if depth level exceeds 2, score becomes 0)
 			login_form_depth_level = min(max(1.0 - min_depth * 0.5, 0.0), 1.0)
 			this.PrintUpdate('Login-form depth level: ' + str(login_form_depth_level_raw))
 
 			### 4. Now save the results into the database
-			crawler_api.storage.SaveScore('test_scores3',
+			crawler_api.storage.SaveScore('scores',
 				URL,
 				datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
 				number_of_pages,
@@ -609,25 +600,26 @@ class Crawler:
 				terms_of_services_page,
 				login_form_depth_level
 			)
-			# crawler_api.storage.SaveScore('characteristics',
-			# 	URL,
-			# 	datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-			# 	number_of_pages_raw,
-			# 	url_type_raw,
-			# 	average_depth_level_raw,
-			# 	average_url_length_raw,
-			# 	domain_age_raw,
-			# 	domain_reservation_duration_raw,
-			# 	whois_private,
-			# 	dps,
-			# 	page_rank_raw,
-			# 	average_content_size_raw,
-			# 	outbound_hyperlinks_raw,
-			# 	category_specific_dictionary_raw,
-			# 	resolver_indication,
-			# 	terms_of_services_page,
-			# 	login_form_depth_level_raw
-			# )
+			# also store raw feature data for analysis
+			crawler_api.storage.SaveScore('characteristics',
+				URL,
+				datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+				number_of_pages_raw,
+				url_type_raw,
+				average_depth_level_raw,
+				average_url_length_raw,
+				domain_age_raw,
+				domain_reservation_duration_raw,
+				whois_private,
+				dps,
+				page_rank_raw,
+				average_content_size_raw,
+				outbound_hyperlinks_raw,
+				category_specific_dictionary_raw,
+				resolver_indication,
+				terms_of_services_page,
+				login_form_depth_level_raw
+			)
 			this.Sleep()
 
 		except Exception as ex:

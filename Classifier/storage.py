@@ -25,22 +25,6 @@ def UpdateWeights(last_update, nr_pages, url_type, average_depth_level, average_
 	login_form_depth_level):
 	table = 'weights'
 	url_unqiue = 'ALL'
-	# Update(table, url_unique, 'lastUpdate', last_update) 
-	# Update(table, url_unique, 'nr_pages', nr_pages) 
-	# Update(table, url_unique, 'url_type', url_type) 
-	# Update(table, url_unique, 'average_depth_level', average_depth_level) 
-	# Update(table, url_unique, 'average_url_length', average_url_length) 
-	# Update(table, url_unique, 'domain_age', domain_age) 
-	# Update(table, url_unique, 'domain_reservation_duration', domain_reservation_duration) 
-	# Update(table, url_unique, 'whois_private', whois_private) 
-	# Update(table, url_unique, 'dps', dps) 
-	# Update(table, url_unique, 'page_rank', page_rank) 
-	# Update(table, url_unique, 'average_content_size', average_content_size) 
-	# Update(table, url_unique, 'outbound_hyperlinks', outbound_hyperlinks) 
-	# Update(table, url_unique, 'category_specific_dictionary', category_specific_dictionary) 
-	# Update(table, url_unique, 'resolver_indication', resolver_indication) 
-	# Update(table, url_unique, 'terms_of_services_page', terms_of_services_page) 
-	# Update(table, url_unique, 'login_form_depth_level', login_form_depth_level) 
 	# more efficient version (only 1 db request/push)
 	query  = 'UPDATE weights SET '
 	query += 'lastUpdate = \'' + str(last_update) + '\', '

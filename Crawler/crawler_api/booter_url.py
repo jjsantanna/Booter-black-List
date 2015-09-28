@@ -1,8 +1,7 @@
 from urllib.parse import urlparse
 
-# container format for potential Booter URL.
-# Holds hostname/domain, complete URL and other 
-# relevant data.
+# container format for potential Booter URL/domainname (PBD)
+# Holds hostname/domain, complete URL and easy access to other relevant data
 class BooterURL:
 	# constructor
 	def __init__(this, url):
@@ -19,7 +18,9 @@ class BooterURL:
 		this.Full_URL = url
 		this.Status	  = '?'
 
-	# returns a URL representation that unique identifies the current URL 
+	# returns a URL representation that uniquely identifies the current URL 
+	# this is the exact format described as a Potential Booter domain name (PBD)
+	# Type 2 URLs are omitted
 	def UniqueName(this):
 		# here we assume the hostname to be a unique identification 
 		protocol = this.Scheme + '://' if this.Scheme else ''

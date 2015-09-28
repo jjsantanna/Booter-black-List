@@ -2,15 +2,13 @@ from verifier import Verifier
 import storage
 import math
 
-
+# classification sub-system based on the Naive Bayes classification metric
 class Verifier_Bayes(Verifier):
 	def __init__(this):
 		Verifier.__init__(this)
 		
 		this.p_booter 	  = 0.1001
-		# this.p_booter 	  = 0.5
 		this.p_non_booter = 0.8999
-		# this.p_non_booter = 0.5
 
 		# calculated: see 'naive_bayes_probabilities.txt'
 		this.p_booter_characteristics     = [
@@ -21,7 +19,6 @@ class Verifier_Bayes(Verifier):
 		]
 
 	# calculates the probability a score vector is a Booter ranging between [0,1]
-	# http://stackoverflow.com/questions/10059594/a-simple-explanation-of-naive-bayes-classification
 	def Calculate(this, score_table, save_table, url):
 		# 0. get score vector and invalid indices (those with - 1.0 are excluded from calculations)
 		score_vector = this.GetScoreVector(score_table, url)

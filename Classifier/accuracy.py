@@ -1,7 +1,8 @@
 import datetime
 import storage
 
-
+# utility functionality for calculating several classification accuracy metrics
+# also includes printing functions
 
 metrics = ['euclidean' , 'squared_euclidean', 'manhattan', 'cosine', 'fractional', 'naive_bayes', 'knn']
 
@@ -21,7 +22,6 @@ def CalculateAccuracy(thresholds):
 		query  = 'SELECT urls.domainName, urls.[booter?] FROM ' + table + ' '
 		query += 'INNER JOIN urls ON urls.domainName = ' + table + '.domainName '
 		query += 'WHERE urls.[booter?] != \'?\' AND urls.status = \'on\''
-		# query += 'LIMIT 465'
 		test_scores[table] = storage.Select(query)
 
 	# for each test_score dataset, calculate the accuracy metrics
@@ -106,7 +106,7 @@ def PrintResults(results, exclude_fn, print_to_file, metricz = '', k = 0):
 		nr_false_positives = results[metric]['fp']
 		nr_false_negatives = results[metric]['fn']
 		if exclude_fn:
-			nr_false_negatives = 0 # if we don't care about false negatives, what will our accuracy then be?
+			nr_false_negatives = 0 # if we don't care about false negatives, what will our accuracy then be
 		nr_total		   = nr_true_positives + nr_true_negatives + nr_false_positives + nr_false_negatives
 		accuracy           = (nr_true_positives + nr_true_negatives) / nr_total
 		print('#true_positives : ' + str(nr_true_positives))

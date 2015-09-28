@@ -1,4 +1,4 @@
-Odds ratio is defined as the ratio of the odds of an event
+From 'Booter (black)lists': Odds ratio is defined as the ratio of the odds of an event
 occurring in the positive class (Booter) to the odds of it occurring in the negative class (non-Booter). An
 odds ratio of 1 indicates that a feature is equally useful in identification of both classes. An odds ratio
 greater than 1 implies the corresponding feature is more useful in identifying the positive class and ratio

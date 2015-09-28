@@ -69,18 +69,16 @@ class CrawlPage:
 		for exclude in excludes:
 			if exclude in subdomains:
 				subdomains.remove(exclude)
-		# print(subdomains)
 		if len(subdomains) > 0: # if domain has subdomain, it is of type 2
 			return 2
 		else:
 			return 1 # else we default to type 1. 
-		# note: there is no way to check if a URL is of type 3 programatically. Discuss!
+		# note: there is no way to check if a URL is of type 3 programatically; see discusson in thesis document
 
 	def GetTopDomain(this):
 		extract = tldextract.extract(this.URL.Hostname)
 		return extract.domain + '.' + extract.suffix
 		
-
 
 	# returns all hyperlinks that point to inbound domains (relative paths = inbound)
 	def GetInboundURLs(this):
@@ -114,10 +112,6 @@ class CrawlPage:
 			except Exception as ex:
 				pass
 
-		# print('INBOUND URL')
-		# print()
-		# print(result)
-		# print()
 		return result
 
 	# returns all outbound hyperlinks 
@@ -142,24 +136,11 @@ class CrawlPage:
 					if url not in urls_found:
 						result.append(url)
 				urls_found.append(url) # to check for duplicates
-		# for url in URLs:
-		# 	if url not in result:
-		# 		excluded = False
-		# 		for exclude in this.Excludes:
-		# 			if exclude in url.lower():
-		# 				excluded = True
-		# 				break
-		# 		if not excluded:
-		# 			result.append(url)
-		# print(result)
 		return result
 
 
 	# returns a tokenized list of words/phrases found in the crawled page's content
 	def GetContent(this):
-		# select ndoes without children: http://stackoverflow.com/questions/3926589/how-to-select-all-leaf-nodes-using-xpath-expression
-		# content = this.Tree.xpath('(//div)[not(*) and not(contains(@style, "hidden"))]/text()')
-		# content      = this.Tree.xpath('(//div)[not(contains(@style, "hidden"))]/descendant-or-self::node()[not(descendant-or-self::p) and not(descendant-or-self::script) and not (descendant-or-self::style)]/text()')
 		text_content = []
 		if len(this.HTML) < 250000: # don't run xPath on too large HTML pages, takes ages (slightly bias-ed but otherwise destroys crawler times)
 			content      = this.Tree.xpath('(//p)[not(contains(@style, "hidden"))]/descendant-or-self::node()/text() | (//div)[not(contains(@style, "hidden"))]//descendant-or-self::node()[not(descendant-or-self::p) and not(descendant-or-self::script) and not (descendant-or-self::style)]/text()')
