@@ -50,13 +50,14 @@ def CheckAccuracy(new_weights):
 	print('best threshold: ' + str(best_t))
 	# final, use selected threshold value T to calculate new accuracy rates / error function and return
 	# - determine accuracy on test dataset, so re-calculate Cosine values.
-	for table in test_tables:
-		print()
-		print('CA_3:TEST TABLE: ' + table)
-		print()
-		for url in storage.Select('SELECT domainName FROM ' + table):
-			print('CA_3:VERIFYING URL: ' + url[0])
-			verDistance.Cosine_Distance(table, test_table_to_verification[table], url[0])
+	# for table in test_tables:
+		# print()
+		# print('CA_3:TEST TABLE: ' + table)
+		# print()
+		# for url in storage.Select('SELECT domainName FROM ' + table):
+			# print('CA_3:VERIFYING URL: ' + url[0])
+			# verDistance.Cosine_Distance(table, test_table_to_verification[table], url[0])
+	# this is commented, as we now test on the scores table alone
 
 	# - then use best threshold found to calculate accuracy of current metric
 	thresholds 		 = [0.0, 0.0, 0.0, best_t, 0.0, 0.0, 0.0] # we only care about Cosine threshold

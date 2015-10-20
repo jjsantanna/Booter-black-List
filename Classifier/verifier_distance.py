@@ -11,9 +11,9 @@ class Verifier_Distance(Verifier):
 		# below we add two vectors for comparing between what feature vector is of the ideal Booter
 		# and what feature vector is of the ideal non-Booter.
 		# currently they are defined as completely 0.0 or 1.0; experimenting wtih different values e.g.
-		# averages of Booter training dataset, numbers more often assosicated with Booters and so on did
+		# averages of Booter training dataset, numbers more often associated with Booters and so on did
 		# not generate consistently better results (sometimes it did, sometimes it didn't). We thus keep
-		# the [1.0,...,1.0] vector as this directly corresponds with the indvidual distance each element
+		# the [1.0,...,1.0] vector as this directly corresponds with the individual distance each element
 		# has to its maximum value.
 		this.vector_booter     = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
@@ -22,7 +22,7 @@ class Verifier_Distance(Verifier):
 		return 1.0 - distance_score
 
 
-	# caclulates the Euclidean distance between a feature vector and Booter vector
+	# calculates the Euclidean distance between a feature vector and Booter vector
 	# saves the result into the database
 	def Euclidean_Distance(this, score_table, save_table, url):
 		# 0. get score vector and invalid indices (those with -1.0 are excluded from calculations)
@@ -51,7 +51,7 @@ class Verifier_Distance(Verifier):
 		# 5. finally save result in database
 		this.SaveScore(save_table, url, 'euclidean', score)
 
-	# caclulates the squared Euclidean distance between a feature vector and Booter vector
+	# calculates the squared Euclidean distance between a feature vector and Booter vector
 	# saves the result into the database
 	def Squared_Euclidian_Distance(this, score_table, save_table, url):
 		# 0. get score vector
@@ -77,7 +77,7 @@ class Verifier_Distance(Verifier):
 		# 4. and finally store result in database
 		this.SaveScore(save_table, url, 'squared_euclidean', score)
 
-	# caclulates the Manhattan distance between a feature vector and Booter vector
+	# calculates the Manhattan distance between a feature vector and Booter vector
 	# saves the result into the database
 	def Manhattan_Distance(this, score_table, save_table, url):
 		# 0. get score vector
@@ -99,7 +99,7 @@ class Verifier_Distance(Verifier):
 		# store result in database
 		this.SaveScore(save_table, url, 'manhattan', score)
 
-	# caclulates the Cosine distance between a feature vector and Booter vector
+	# calculates the Cosine distance between a feature vector and Booter vector
 	# saves the result into the database
 	def Cosine_Distance(this, score_table, save_table, url):
 		# 0. get score vector
@@ -123,7 +123,7 @@ class Verifier_Distance(Verifier):
 		# store result in database
 		this.SaveScore(save_table, url, 'cosine', score)
 
-	# caclulates the Fractional distance between a feature vector and Booter vector
+	# calculates the Fractional distance between a feature vector and Booter vector
 	# saves the result into the database
 	# 
 	# the normalization is calculated as follows:

@@ -18,18 +18,18 @@ test_table_to_verification['test_scores2'] = 'verification2'
 test_table_to_verification['test_scores3'] = 'verification3'
 test_tables = ['test_scores', 'test_scores2', 'test_scores3']
 # test_tables = ['scores']
-for table in test_tables:
+for table in test_tables: 
 	print('== ===========================')
 	print('TEST TABLE: ' + table)
 	print('== ===========================')
 	for url in storage.Select('SELECT domainName FROM ' + table):
 		print('VERIFYING URL: ' + url[0])
-		# verDistance.Euclidean_Distance(table, test_table_to_verification[table], url[0])
-		# verDistance.Squared_Euclidian_Distance(table, test_table_to_verification[table], url[0])
-		# verDistance.Manhattan_Distance(table, test_table_to_verification[table], url[0])
-		# verDistance.Cosine_Distance(table, test_table_to_verification[table], url[0])
-		# verDistance.Fractional_Distance(table, test_table_to_verification[table], url[0], 0.5)
-		# verBayes.Calculate(table, test_table_to_verification[table], url[0])
+		verDistance.Euclidean_Distance(table, test_table_to_verification[table], url[0])
+		verDistance.Squared_Euclidian_Distance(table, test_table_to_verification[table], url[0])
+		verDistance.Manhattan_Distance(table, test_table_to_verification[table], url[0])
+		verDistance.Cosine_Distance(table, test_table_to_verification[table], url[0])
+		verDistance.Fractional_Distance(table, test_table_to_verification[table], url[0], 0.5)
+		verBayes.Calculate(table, test_table_to_verification[table], url[0])
 		verKNN.Calculate(table, test_table_to_verification[table], url[0], 10)
 
 
