@@ -8,7 +8,7 @@ import datetime
 # open connection and retrieve (single) cursor
 # connection = sqlite3.connect('../BOOTERS.db') # for local call
 # connection = sqlite3.connect('BOOTERS.db')
-connection = sqlite3.connect('../RQ 3/BOOTERS_TRAINING.db')
+connection = sqlite3.connect('../RQ 3/BOOTERS_TRAINING.db') 
 
 # saves a Booter URL in the database.
 # if the Booter URL was not yet found a row is inserted,
@@ -18,8 +18,8 @@ def SaveURL(booterURL, source = '', status='?', notes=''):
 	url_unique = booterURL.UniqueName()
 	# check if booter's url already exists
 	if RowExists('urls', url_unique):
-		# if entry exists, only do a necessary updates
-		# Update('urls', url_unique, 'status', status) # disable again after manual verification of training set
+		# if entry exists, only do necessary updates
+		# Update('urls', url_unique, 'status', status) # disable for manual verification of training set
 		Update('urls', url_unique, 'timeUpdate', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')) # so we can see which URLS are from august 1 onwards (test set)
 		# also append source information if not yet stored
 		sources = GetSingleValue('urls', url_unique, 'srcInformation')

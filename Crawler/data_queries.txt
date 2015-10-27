@@ -23,13 +23,5 @@ AND resolver_indication >= 0.0 AND terms_of_services_page >= 0.0 AND login_form_
 GROUP BY urls.[booter?]
 
 
-
-UPDATE characteristics SET page_rank = 25800230.0 
-WHERE page_rank = -1.0
-
-
-UPDATE characteristics SET login_form_depth_level = 3.0 
-WHERE login_form_depth_level = -1.0
-
 SELECT urls.domainName, lastUpdate FROM urls INNER JOIN characteristics ON urls.domainName = characteristics.domainName WHERE urls.[booter?] = 'Y'
 ORDER BY lastUpdate DESC

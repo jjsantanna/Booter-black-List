@@ -17,12 +17,14 @@ verDistance = Verifier_Distance()
 def CheckAccuracy(new_weights):
 	# - update classifier with new weights
 	verDistance.weights = new_weights
+	# verDistance.weights = [16.7194209217615, 2.60829499230467,2.2260372998623,2.90305925398725,5.09533279100191,2.99409304662811,3.1147007335932,5.27110197918494,7.929635390837,3.5367525886694,6.76277542448109,1.62292767902453,0.707530369202495,0.492143303569623,0.644893274893918]
+
 	# first, re-calculate Cosine distance values with new weights (on training set)
 	for url in storage.Select('SELECT domainName FROM scores'):
 		print('CA_1:VERIFYING URL: ' + url[0])
 		verDistance.Cosine_Distance('scores', test_table_to_verification['scores'], url[0])
 
-	# second, check Cosine distance accuracy on 100 thresholds and select best T (on CAR or TI_er?) 
+	# second, check Cosine distance accuracy on 100 thresholds and select best T
 	# (on scores database)
 	threshold_results = accuracy.CalculateThresholds(100, 'cosine', 'scores')
 	# - find best result
@@ -45,15 +47,18 @@ def CheckAccuracy(new_weights):
 			t = i / (len(threshold_results) - 1)
 			# - set as current beste threshold value t
 			best_t = t
+	print('best threshold: ' + str(best_t))
 	# final, use selected threshold value T to calculate new accuracy rates / error function and return
 	# - determine accuracy on test dataset, so re-calculate Cosine values.
-	for table in test_tables:
-		print()
-		print('CA_3:TEST TABLE: ' + table)
-		print()
-		for url in storage.Select('SELECT domainName FROM ' + table):
-			print('CA_3:VERIFYING URL: ' + url[0])
-			verDistance.Cosine_Distance(table, test_table_to_verification[table], url[0])
+	# for table in test_tables:
+		# print()
+		# print('CA_3:TEST TABLE: ' + table)
+		# print()
+		# for url in storage.Select('SELECT domainName FROM ' + table):
+			# print('CA_3:VERIFYING URL: ' + url[0])
+			# verDistance.Cosine_Distance(table, test_table_to_verification[table], url[0])
+	# this is commented, as we now test on the scores table alone
+
 	# - then use best threshold found to calculate accuracy of current metric
 	thresholds 		 = [0.0, 0.0, 0.0, best_t, 0.0, 0.0, 0.0] # we only care about Cosine threshold
 	accuracy_results = accuracy.CalculateAccuracy(thresholds)
@@ -67,7 +72,7 @@ def CheckAccuracy(new_weights):
 	TI_er    = false_positives / nr_total
 	TII_er   = false_negatives / nr_total
 	# - finally return newly calculated accuracy
-	return CAR
+	return [CAR, TI_er, TII_er]
 
 
 # gaussian function: a * e^((-(x - b)^2) / (2 * c^2))
@@ -81,23 +86,17 @@ def Gaussian(x = 0.5):
 	value = a * math.exp(-((x - b)**2) / (2 * c**2))
 	return value
 
-
-# weights = [40.97, 6.0, 5.03, 7.0, 22.19, 5.77, 5.98, 9.07, 20.93, 12.26, 22.83,	3.0, 1.39, 1.13, 2.92]
-# car = CheckAccuracy(weights)
-# print(car)
-
-iterations = 0
+iterations = 1
 while True:
 	iterations += 1
-	# 1, get current best set of weights and corresponding accuracy
+	# 1, get current best set of weights and corresponding accuracy rate
 	row 		= storage.Select('SELECT * FROM weight_adaptability ORDER BY car DESC LIMIT 1')
-	car 		= row[0][1]
-	new_weights = list(row[0][2:])
+	car 		= row[0][1] # best CAR stored in database
+	new_weights = list(row[0][4:])
 	# 2. update weights based on Guassian distribution curve
 	for w in range(0, len(new_weights)):
 		random_value = Gaussian(random.uniform(0.0, 1.001))
-		# print(random_value)
-		new_weights[w] *= random_value # TODx`O: make random in range [0,1]
+		new_weights[w] *= random_value 
 	# 3. create random outliers as to evolute the algorithm and throw it in different directions
 	# - do this once every 5 iterations
 	if iterations % 5 == 0:
@@ -108,14 +107,16 @@ while True:
 		print('outlier ' + str(w) + ' boosted by ' + str(boost))
 		new_weights[w] *= boost
 	# 4. use updated weights to calculate new CAR
-	new_car = CheckAccuracy(new_weights)
-	print('new CAR: ' +str(new_car))
-	if new_car > car:
-		print('new set of weights found: ' + str(new_weigths))
+	error_rates = CheckAccuracy(new_weights) # [CAR, TI_er, TII_er]
+	print('new CAR: ' +str(error_rates[0]))
+	if error_rates[0] > car:
+		print('new set of weights found: ' + str(new_weights))
 	# 5. store and repeat
 	storage.Insert('weight_adaptability', 
-		datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-		new_car, 
+		[datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+		error_rates[0],
+		error_rates[1],
+		error_rates[2], 
 		new_weights[0], 
 		new_weights[1],
 		new_weights[2],
@@ -130,6 +131,5 @@ while True:
 		new_weights[11],
 		new_weights[12],
 		new_weights[13],
-		new_weights[14],
-		new_weights[15]
+		new_weights[14]]
 	)

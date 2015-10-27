@@ -22,7 +22,7 @@ class ForumItem:
 			return datetime.datetime.strptime(date.lower(), '%m-%d-%Y %H:%M %p')
 
 	# validates whether a forum entry "could" contain
-	# a Booter e.g. by keyword search
+	# a Booter by keyword search
 	def IsPotentialBooter(this):
 		keywords = { 
 			"booter", 

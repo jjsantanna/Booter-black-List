@@ -25,9 +25,7 @@ class Verifier:
 		return math.sqrt(length);
 
 	def GetScoreVector(this, table, url):
-		# result = storage.Select('SELECT * FROM scores WHERE domainName = \'' + url + '\'')
-		result = storage.Select('SELECT * FROM ' + table + ' WHERE domainName = \'' + url + '\'') # only load from test_scores
-
+		result = storage.Select('SELECT * FROM ' + table + ' WHERE domainName = \'' + url + '\'') 
 		score_vector = []
 		for score in result[0][2:]:
 			score_vector.append(score)
@@ -38,11 +36,7 @@ class Verifier:
 		for i in range(0, len(score_vector)):
 			if score_vector[i] < 0.0:
 				invalid.append(i)
-		# if want to test better accuracy by excluding some characteristics uncomment following statement(s)
-		# invalid.append(3)
-		# invalid.append(6)
-		# invalid.append(12)
-		# invalid.append(13)
+		# invalid.append(3) # use these statements to not use certain characteristics in the calculations
 		return invalid
 
 	def GetScaledWeightVector(this, invalids):
@@ -60,7 +54,6 @@ class Verifier:
 	def GetWeightedScoreVector(this, score_vector, invalids):
 		# calculate new scores based on weights in range [0, max_weight]
 		weighted_score_vector = list(score_vector)
-		# print('unweighted:' + str(weighted_score_vector))
 		for i in range(0, len(score_vector)):
 			if i not in invalids:
 				weighted_score_vector[i] *= this.weights[i]
@@ -74,7 +67,6 @@ class Verifier:
 		for i in range(0, len(weighted_score_vector)):
 			weighted_score_vector[i] /= max_weight
 
-		# print('  weighted:' + str(weighted_score_vector))
 		return weighted_score_vector				
 		# return score_vector # uncomment this if you don't want to use weights
 

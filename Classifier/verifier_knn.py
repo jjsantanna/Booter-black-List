@@ -3,6 +3,7 @@ import storage
 import math
 
 
+# classification sub-system focussed on the k-NN classification metric
 class Verifier_KNN(Verifier):
 	def __init__(this, use_weights = True):
 		Verifier.__init__(this)

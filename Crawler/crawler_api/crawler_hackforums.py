@@ -11,33 +11,16 @@ class Crawler_Hackforums(Crawler):
 		domain = 'http://www.hackforums.net/' 
 		Crawler.__init__(self, domain, sleep_level)
 
-		# this.Excludes = {
-		# 	'youtube.com',
-		# 	'gyazo.com',
-		# 	'dropbox.com',
-		# 	'uploading.com',
-		# 	'ge.tt',
-		# 	'rapidshare.com',
-		# 	'facebook.com',
-		# 	'twitter.com',
-		# 	'hackforums.net',
-		# 	'imgur.net',
-		# 	'mediafire.com',
-		# 	'prntscr.com',
-		# 	'pastebin.com',
-		# 	'imgur.com',
-		# }
-
 		self.PrintNote('CRAWLING HACKFORUMS')
 		self.PrintDivider()
 		self.Initialize()
 
 	# Login to hackforums.net
-	# NOTE: This will not work everytime, you have to manually login to hackforums.net first as to 
-	# circumvent their first-login IP check using the credentials below.
+	# NOTE: somtimes their login procedures block automated attempts; in that case a semi-brute
+	# force attempt is executed in the Crawler superclass.
 	def Login(self):
-		username = 'SwagLordxx69' # username generated as the most non-suspicious username possible
-		password = 'LePass1337'
+		username = 'your_username_here' 
+		password = 'your_password_here'
 		url = self.Target + 'member.php'
 		post_data = {
 			'username': username,
@@ -46,16 +29,13 @@ class Crawler_Hackforums(Crawler):
     		'url': 'http://www.hackforums.net/index.php',
     		'my_post_key': '60aae6001602ef2e0bd45033d53f53dd'
 		}
-		# first gather some resources to circumvent crawler protection - doesn't work
-		# self.JSCrawl(self.Target)
-		# self.JSCrawl(self.Target + 'forumdisplay.php?fid=232')
 		return super(Crawler_Hackforums, self).Login(
 			url, 
 			self.Target + 'index.php', 
 			post_data
 		)
 
-	# Overrides Crawler's crawl function
+	# overrides Crawler's crawl function
 	def Crawl(self, max_date):
 		# crawl of hackforums.net is executed in three steps:
 		# 1. we retrieve all interesting forum posts
@@ -139,32 +119,6 @@ class Crawler_Hackforums(Crawler):
 			if url != '':
 				self.AddToList(BooterURL(url), item.URL)
 
-			# if a URL was found, resolve it and if succesful: add to list
-			# if url != '' and not self.IsExcluded(BooterURL(url)):
-			# 	try:
-			# 		# response = self.Session.get(url, headers=self.Header)
-			# 		status   = self.GetStatus(url) # returns tuple of resolved url, response code and status code
-
-			# 		if status[1] == 200: # status[1] = response code
-			# 			url = status[2] # status[2] = url
-			# 		else:
-			# 			# url was not properly resolved, determine cause
-			# 			if status[1] == 503:
-			# 				# blocked by cloudflare bot protection, use JS crawler
-			# 				response = self.JSCrawl(status[2])
-			# 				url = response.url if response.status_code == 200 else ''
-			# 				status[1] = response.status_code
-			# 				self.PrintLine('CRAWLER: bypassing cloudflare: ' + str(response.status_code) + ' | ' + response.url, Fore.MAGENTA)
-			# 		# if URL was succesfully resolved (one way or another) add to list
-			# 		if url != '' and status[1] == 200:
-			# 			self.AddToList(BooterURL(url), item.URL, status[0])
-			# 			self.PrintLine('CRAWLER: ' + url, Fore.BLUE)
-			# 	except Exception as ex:
-			# 		self.PrintError('EXCEPTION: ' + str(ex))
-			# else:
-			# 	# no potential booter detected (not found or excluded)
-			# 	self.PrintLine('CRAWLER: no (potential) Booter detected', Fore.WHITE, Style.DIM)
-
 			# print a divider line every 10 results (to keep things organized)
 			counter = counter + 1
 			if counter % 10 == 0:        
@@ -175,5 +129,3 @@ class Crawler_Hackforums(Crawler):
 		self.PrintUpdate('DONE; Resolved: ' + str(len(self.URLs)) + ' Booter URLs')
 		self.PrintDivider()
 		
-		### step 3. gather evidence and calculate scores per URL
-		# for url in self.URLs:

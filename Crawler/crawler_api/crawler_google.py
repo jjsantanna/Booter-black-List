@@ -4,6 +4,9 @@ from crawler_api.crawler import Crawler
 
 # documentation: https://developers.google.com/web-search/docs/#The_Basics
 
+# this is the official API crawler of Google
+# this sub-crawler is discontinuid as the maximum number of results is #64
+# see crawler_google2 for the updated custom Google crawler.
 class Crawler_Google(Crawler):
 	'Crawler for Google\'s search API'
 	def __init__(self, sleep_level=1):
@@ -13,12 +16,7 @@ class Crawler_Google(Crawler):
 		self.PrintDivider()
 		self.Initialize()
 
-	# Login to hackforums.net
-	def Login(self):
-		# no login
-		self.PrintError('NO LOGIN REQUIRED')
-
-	# Overrides Crawler's crawl function
+	# overrides Crawler's crawl function
 	def Crawl(self):
 		keywords = ['Booters', 'DDOS', 'Stresser']
 		       
@@ -38,8 +36,6 @@ class Crawler_Google(Crawler):
 				results = json.loads(response.text)
 				# print(results)
 				if results != None:            
-					# print number of i to check status (in case we get blocked)
-					# print("iteration: " + str(i))
 					# now store all booters found in JSON to list of booters
 					try:
 						for result in results['responseData']['results']:

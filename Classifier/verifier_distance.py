@@ -3,26 +3,29 @@ import storage
 import math
 
 
+# verification sub-class for Distance metrics:
+# Eucldiean, Squared Euclidean, Manhattan, Fractional and Cosine
 class Verifier_Distance(Verifier):
 	def __init__(this):
 		Verifier.__init__(this)
 		# below we add two vectors for comparing between what feature vector is of the ideal Booter
 		# and what feature vector is of the ideal non-Booter.
-		# currently they are defined as completely 0.0 or 1.0, but later we will also experiment with
-		# maximum/minimum feature vectors as obtained from the training dataset
+		# currently they are defined as completely 0.0 or 1.0; experimenting wtih different values e.g.
+		# averages of Booter training dataset, numbers more often associated with Booters and so on did
+		# not generate consistently better results (sometimes it did, sometimes it didn't). We thus keep
+		# the [1.0,...,1.0] vector as this directly corresponds with the individual distance each element
+		# has to its maximum value.
 		this.vector_booter     = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-		# this.vector_booter     = [0.93, 0.96, 0.87, 0.36, 0.78, 0.90, 0.71, 0.71, 0.90, 0.70, 0.84, 0.49, 0.24, 0.47, 0.52] # averages
 
 	# calculates a similarity score from a distance score
 	def Similarity(this, distance_score):
 		return 1.0 - distance_score
 
 
-	# caclulates the Euclidean distance between a feature vector and Booter vector
+	# calculates the Euclidean distance between a feature vector and Booter vector
 	# saves the result into the database
 	def Euclidean_Distance(this, score_table, save_table, url):
 		# 0. get score vector and invalid indices (those with -1.0 are excluded from calculations)
-		# score_vector = list(this.vector_booter)
 		score_vector = this.GetScoreVector(score_table, url)
 		invalids 	 = this.GetInvalidIndices(score_vector)
 		valid_nr	 = len(score_vector) - len(invalids)
@@ -48,7 +51,7 @@ class Verifier_Distance(Verifier):
 		# 5. finally save result in database
 		this.SaveScore(save_table, url, 'euclidean', score)
 
-	# caclulates the squared Euclidean distance between a feature vector and Booter vector
+	# calculates the squared Euclidean distance between a feature vector and Booter vector
 	# saves the result into the database
 	def Squared_Euclidian_Distance(this, score_table, save_table, url):
 		# 0. get score vector
@@ -74,7 +77,7 @@ class Verifier_Distance(Verifier):
 		# 4. and finally store result in database
 		this.SaveScore(save_table, url, 'squared_euclidean', score)
 
-	# caclulates the Manhattan distance between a feature vector and Booter vector
+	# calculates the Manhattan distance between a feature vector and Booter vector
 	# saves the result into the database
 	def Manhattan_Distance(this, score_table, save_table, url):
 		# 0. get score vector
@@ -96,7 +99,7 @@ class Verifier_Distance(Verifier):
 		# store result in database
 		this.SaveScore(save_table, url, 'manhattan', score)
 
-	# caclulates the Manhattan distance between a feature vector and Booter vector
+	# calculates the Cosine distance between a feature vector and Booter vector
 	# saves the result into the database
 	def Cosine_Distance(this, score_table, save_table, url):
 		# 0. get score vector
@@ -115,13 +118,12 @@ class Verifier_Distance(Verifier):
 		if denominator != 0.0:
 			score = dot_product / denominator
 			# 2. normalize results
-			# all angles (inner or outer) less than 180 are > 0
 			# distance = distance * 0.5 + 0.5 # transforms from [-1,1] to [0,1] range # no need to convert, angle will never be negative as there are no negative vector values so will always be between [0,1]
 			# score    = distance
 		# store result in database
 		this.SaveScore(save_table, url, 'cosine', score)
 
-	# caclulates the Manhattan distance between a feature vector and Booter vector
+	# calculates the Fractional distance between a feature vector and Booter vector
 	# saves the result into the database
 	# 
 	# the normalization is calculated as follows:
@@ -130,7 +132,6 @@ class Verifier_Distance(Verifier):
 	# that we multiply with the power of (1/f). We take the invalid metrics into
 	# account.
 	def Fractional_Distance(this, score_table, save_table, url, f = 1.0):
-		# f = 1.0 / l
 		# 0. get score vector
 		score_vector = this.GetScoreVector(score_table, url)
 		invalids 	 = this.GetInvalidIndices(score_vector)
@@ -147,7 +148,6 @@ class Verifier_Distance(Verifier):
 		distance = distance**(1/f)
 		# normalize results
 		# - calculate maximum value by assuming input vector is completely 1.0 in equation
-		# max_distance = valid_nr # as equation runs 1.0^f which is always 1.0
 		max_distance = max_distance**(1/f) 
 		distance = distance / max_distance
 		score    = this.Similarity(distance)
