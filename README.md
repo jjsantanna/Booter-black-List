@@ -1,3 +1,3 @@
 # Booter (black)List
 
-[Read more ...]('Booter (Black)List.ipynb')
+[Read more ...](Booter (Black)List.ipynb)
